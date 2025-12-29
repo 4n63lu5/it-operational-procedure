@@ -11,6 +11,12 @@ Un package Typst professionnel pour la rédaction de procédures informatiques a
 - **Historique des révisions** : Tableau complet des modifications
 - **Système d'approbation** : Suivi des validateurs et approbateurs
 
+### Page de Garde (Nouveau ✨)
+- **Page de garde optionnelle** : Ajoutez une page de garde professionnelle avant le document
+- **Logo personnalisé** : Intégrez le logo de votre organisation sur la page de garde
+- **QR Code avec UUID** : Associez un QR code contenant un UUID unique pour la traçabilité et l'authentification du document
+- **Compatible avec tous les formats d'image** : Support des formats SVG, PNG, JPEG, etc.
+
 ### Indicateurs de Sécurité
 - **TLP (Traffic Light Protocol)** : Indicateurs de confidentialité
   - TLP:RED - Information hautement confidentielle
@@ -121,6 +127,46 @@ PostgreSQL a été installé avec succès!
 // Votre contenu ici...
 ```
 
+### Avec Page de Garde (Nouveau ✨)
+
+```typst
+#show: procedure.with(
+  title: "Installation et Configuration de PostgreSQL",
+  doc-number: "PROC-042",
+  version: "1.0.0",
+  date: "29/12/2024",
+  author: "Équipe DBA",
+  tlp-level: "amber",
+  // Activer la page de garde
+  enable-cover-page: true,
+  cover-logo: "assets/logo.svg",
+  cover-qr-code-image: "assets/qrcode.png",
+  cover-qr-uuid: "550e8400-e29b-41d4-a716-446655440000",
+  revisions: (
+    (version: "1.0.0", date: "29/12/2024", author: "J. Dupont", 
+     description: "Création initiale"),
+  ),
+  approvers: (
+    (role: "Rédacteur", name: "Jean Dupont", signature: ""),
+    (role: "Validateur", name: "Marie Martin", signature: ""),
+    (role: "Approbateur", name: "Directeur IT", signature: ""),
+  )
+)
+
+// Votre contenu ici...
+```
+
+**Note** : Pour générer un QR code à partir d'un UUID, vous pouvez utiliser :
+- Des générateurs en ligne comme [QR Code Generator](https://www.qr-code-generator.com/)
+- Des outils en ligne de commande : `qrencode -o qrcode.png "550e8400-e29b-41d4-a716-446655440000"`
+- Des bibliothèques Python : `import qrcode; qr = qrcode.make("uuid"); qr.save("qrcode.png")`
+
+La page de garde apparaîtra **avant** la page de titre standard et affichera :
+- Le logo de votre organisation (si fourni)
+- Le titre et le numéro du document
+- Le QR code avec l'UUID (si fourni)
+- L'indicateur TLP
+
 ### Exemples de Styles
 
 ```typst
@@ -161,11 +207,15 @@ Cette opération est irréversible. Procédez avec précaution.
 
 ```
 it-operational-procedure/
-├── typst.toml          # Métadonnées du package
-├── lib.typ             # Bibliothèque principale
-├── example.typ         # Exemple d'utilisation
-├── README.md           # Documentation
-└── LICENSE             # Licence MIT
+├── typst.toml               # Métadonnées du package
+├── lib.typ                  # Bibliothèque principale
+├── example.typ              # Exemple d'utilisation basique
+├── example-with-cover.typ   # Exemple avec page de garde
+├── assets/                  # Ressources d'exemple
+│   ├── logo.svg             # Logo d'exemple
+│   └── sample-qrcode.png    # QR code d'exemple
+├── README.md                # Documentation
+└── LICENSE                  # Licence MIT
 ```
 
 ## 🎨 Personnalisation
@@ -196,6 +246,15 @@ it-operational-procedure/
 
 ### Template Principal
 - `procedure()` - Template de document principal avec toutes les options
+  - **Paramètres standards** : `title`, `doc-number`, `version`, `date`, `author`, `tlp-level`, `revisions`, `approvers`
+  - **Paramètres de page de garde (nouveaux)** :
+    - `enable-cover-page: true/false` - Active ou désactive la page de garde
+    - `cover-logo: "chemin/vers/logo"` - Chemin vers le fichier image du logo
+    - `cover-qr-code-image: "chemin/vers/qrcode"` - Chemin vers l'image du QR code
+    - `cover-qr-uuid: "uuid-string"` - UUID à afficher sous le QR code
+
+### Page de Garde
+- `cover-page()` - Génère une page de garde professionnelle avec logo et QR code
 
 ### Indicateurs
 - `tlp-indicator(level)` - Affiche un badge TLP (red/amber/green/white/clear)
@@ -228,8 +287,9 @@ typst watch example.typ
 typst compile example.typ output.pdf
 ```
 
-## 📄 Exemple Complet
+## 📄 Exemples Complets
 
+### Exemple Basique (`example.typ`)
 Voir le fichier `example.typ` pour un exemple complet d'utilisation incluant :
 - Page de titre avec métadonnées
 - Historique des révisions
@@ -238,6 +298,18 @@ Voir le fichier `example.typ` pour un exemple complet d'utilisation incluant :
 - Contenu avec tous les styles disponibles
 - Numérotation des pages
 - En-têtes et pieds de page personnalisés
+
+### Exemple Avec Page de Garde (`example-with-cover.typ`)
+Voir le fichier `example-with-cover.typ` pour un exemple complet incluant :
+- **Page de garde professionnelle** avec logo et QR code
+- UUID unique pour la traçabilité du document
+- Tous les éléments de l'exemple basique
+
+Pour compiler les exemples :
+```bash
+typst compile example.typ
+typst compile example-with-cover.typ
+```
 
 ## 🤝 Contribution
 

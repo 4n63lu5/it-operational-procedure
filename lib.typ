@@ -175,6 +175,64 @@
   )
 }
 
+// Cover page with logo and QR code
+#let cover-page(
+  logo: none,
+  qr-code-image: none,
+  qr-uuid: none,
+  title: "Procédure Informatique",
+  doc-number: "PROC-001",
+  tlp-level: "clear"
+) = {
+  align(center)[
+    #v(2cm)
+    
+    // Display logo if provided
+    #if logo != none {
+      image(logo, width: 60%)
+      v(1.5cm)
+    }
+    
+    #v(1fr)
+    
+    // Display title and document info
+    #text(size: 28pt, weight: "bold", fill: rgb("#1a5490"))[#title]
+    
+    #v(15pt)
+    
+    #text(size: 16pt, fill: gray)[Document #doc-number]
+    
+    #v(1.5cm)
+    
+    // Display QR code if provided
+    #if qr-code-image != none {
+      block(
+        fill: white,
+        stroke: 1pt + gray,
+        inset: 15pt,
+        radius: 5pt,
+        [
+          #image(qr-code-image, width: 5cm)
+          #if qr-uuid != none {
+            v(8pt)
+            text(size: 9pt, fill: gray)[UUID: #qr-uuid]
+          }
+        ]
+      )
+      v(1cm)
+    }
+    
+    #v(1fr)
+    
+    // TLP indicator
+    #tlp-indicator(level: tlp-level)
+    
+    #v(2cm)
+  ]
+  
+  pagebreak()
+}
+
 // Main document template
 #let procedure(
   title: "Procédure Informatique",
@@ -185,6 +243,11 @@
   tlp-level: "clear",
   revisions: (),
   approvers: (),
+  // Cover page options
+  enable-cover-page: false,
+  cover-logo: none,
+  cover-qr-code-image: none,
+  cover-qr-uuid: none,
   body
 ) = {
   // Set document metadata
@@ -252,6 +315,18 @@
     justify: true,
     leading: 0.65em
   )
+  
+  // Cover page (if enabled)
+  if enable-cover-page {
+    cover-page(
+      logo: cover-logo,
+      qr-code-image: cover-qr-code-image,
+      qr-uuid: cover-qr-uuid,
+      title: title,
+      doc-number: doc-number,
+      tlp-level: tlp-level
+    )
+  }
   
   // Title page
   align(center)[
