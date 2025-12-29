@@ -121,7 +121,7 @@
 }
 
 // Code block (generic)
-#let code-block(body, lang: none) = {
+#let code-block(body) = {
   block(
     fill: rgb("#F5F5F5"),
     inset: 10pt,
@@ -132,18 +132,6 @@
       size: 9pt,
       body
     )
-  )
-}
-
-// Revision history entry
-#let revision-entry(version, date, author, description) = {
-  grid(
-    columns: (auto, 1fr, auto, 2fr),
-    gutter: 10pt,
-    text(weight: "bold", version),
-    date,
-    text(style: "italic", author),
-    description
   )
 }
 
