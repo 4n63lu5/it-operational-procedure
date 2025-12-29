@@ -12,7 +12,10 @@
 
 // TLP Indicator function
 #let tlp-indicator(level: "clear") = {
-  let tlp = tlp-colors.at(level)
+  // Validate and default to "clear" if invalid level provided
+  let valid-levels = ("red", "amber", "green", "white", "clear")
+  let safe-level = if level in valid-levels { level } else { "clear" }
+  let tlp = tlp-colors.at(safe-level)
   box(
     fill: tlp.bg,
     outset: 5pt,
@@ -30,7 +33,7 @@
     width: 100%,
     text(
       fill: rgb("#00FF00"),
-      font: "DejaVu Sans Mono",
+      font: ("DejaVu Sans Mono", "Consolas", "Monaco", "Courier New", "monospace"),
       size: 10pt,
       body
     )
@@ -48,7 +51,7 @@
     [
       #text(fill: rgb("#FF8C00"), weight: "bold", size: 9pt)[📝 Édition du fichier: #path]
       #v(5pt)
-      #text(font: "DejaVu Sans Mono", size: 9pt, body)
+      #text(font: ("DejaVu Sans Mono", "Consolas", "Monaco", "Courier New", "monospace"), size: 9pt, body)
     ]
   )
 }
@@ -125,7 +128,7 @@
     radius: 3pt,
     width: 100%,
     text(
-      font: "DejaVu Sans Mono",
+      font: ("DejaVu Sans Mono", "Consolas", "Monaco", "Courier New", "monospace"),
       size: 9pt,
       body
     )
