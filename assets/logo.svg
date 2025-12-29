@@ -1,0 +1,12 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="90" fill="#1a5490" stroke="#2874a6" stroke-width="3"/>
+  
+  <!-- IT text -->
+  <text x="100" y="115" font-family="Arial, sans-serif" font-size="60" font-weight="bold" 
+        fill="white" text-anchor="middle">IT</text>
+  
+  <!-- Bottom text -->
+  <text x="100" y="180" font-family="Arial, sans-serif" font-size="16" 
+        fill="#1a5490" text-anchor="middle" font-weight="bold">PROCEDURE</text>
+</svg>
