@@ -1,0 +1,10 @@
+[package]
+name = "it-operational-procedure"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["4n63lu5"]
+license = "MIT"
+description = "A Typst package for documenting IT operational procedures with version control, approval tracking, and professional styling."
+repository = "https://github.com/4n63lu5/it-operational-procedure"
+keywords = ["documentation", "procedures", "IT", "operations"]
+categories = ["documentation"]
